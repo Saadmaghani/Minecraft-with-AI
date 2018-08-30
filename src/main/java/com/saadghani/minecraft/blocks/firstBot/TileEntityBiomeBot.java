@@ -1,36 +1,32 @@
 package com.saadghani.minecraft.blocks.firstBot;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 
 public class TileEntityBiomeBot extends TileEntity {
 
+    EntityPlayer player=null;
 
-    private int count;
-
-    @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound.setInteger("count",count);
-        return super.writeToNBT(compound);
+    public EntityPlayer getPlayer(){return player;}
+    TileEntityBiomeBot(EntityPlayer p){
+        super();
+        player = p;
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        count = compound.getInteger("count");
-        super.readFromNBT(compound);
+    public double getMaxRenderDistanceSquared() {
+        return Double.POSITIVE_INFINITY;
     }
 
-    public int getCount(){
-        return count;
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        AxisAlignedBB infiniteExample = INFINITE_EXTENT_AABB;
+        return infiniteExample;
+
     }
 
-    public void incrementCount(){
-        count++;
-        markDirty();
-    }
 
-    public void decrementCount(){
-        count--;
-        markDirty();
-    }
 }

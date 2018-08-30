@@ -2,6 +2,7 @@ package com.saadghani.minecraft;
 
 import com.saadghani.minecraft.client.AiTab;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import com.saadghani.minecraft.blocks.ModBlocks;
 import com.saadghani.minecraft.items.ModItems;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 
 @Mod(modid = McMod.MODID, name = McMod.NAME, version = McMod.VERSION)
@@ -24,6 +26,8 @@ public class McMod
 
     public static final AiTab creativeTab = new AiTab();
 
+
+
     @Mod.Instance(MODID)
     public static McMod instance;
 
@@ -34,6 +38,7 @@ public class McMod
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         System.out.println(NAME + " is loading!");
+        proxy.registerRenderers();
     }
 
     @Mod.EventHandler
