@@ -15,9 +15,10 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
+import java.util.ArrayList;
+
 public class BiomeBot extends BlockTileEntity<TileEntityBiomeBot> {
 
-    EntityPlayer player;
 
     public BiomeBot(){
         super(Material.ROCK, "biome_bot");
@@ -34,8 +35,6 @@ public class BiomeBot extends BlockTileEntity<TileEntityBiomeBot> {
         EntityPlayer player = world.playerEntities.get(0);
         return new TileEntityBiomeBot(player);
     }
-
-
 
 
 }

@@ -1,5 +1,6 @@
 package com.saadghani.minecraft.blocks;
 
+import com.saadghani.minecraft.blocks.firstBot.BBStationary;
 import com.saadghani.minecraft.blocks.firstBot.BiomeBot;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -9,24 +10,27 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class ModBlocks  {
 
 
-    public static BiomeBot counter = new BiomeBot();
+    public static BiomeBot biomeBot = new BiomeBot();
+    public static BBStationary bb_stationary = new BBStationary();
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
-                counter
+                biomeBot, bb_stationary
         );
-        GameRegistry.registerTileEntity(counter.getTileEntityClass(), counter.getRegistryName().toString());
+        GameRegistry.registerTileEntity(biomeBot.getTileEntityClass(), biomeBot.getRegistryName().toString());
+
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry) {
         registry.registerAll(
 
-                counter.createItemBlock()
+                biomeBot.createItemBlock(),
+                bb_stationary.createItemBlock()
         );
     }
 
     public static void registerModels() {
-
-        counter.registerItemModel(Item.getItemFromBlock(counter));
+        bb_stationary.registerItemModel(Item.getItemFromBlock(bb_stationary));
+        biomeBot.registerItemModel(Item.getItemFromBlock(biomeBot));
     }
 }
