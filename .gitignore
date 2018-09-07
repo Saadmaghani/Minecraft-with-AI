@@ -26,3 +26,11 @@ run
 *.jar
 mcmod.info
 pack.mcmeta
+
+
+#minecraft
+*.json
+*.png
+
+#python
+*.hdf5
