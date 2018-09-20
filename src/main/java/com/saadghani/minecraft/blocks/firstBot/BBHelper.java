@@ -29,7 +29,7 @@ public class BBHelper {
     }
 
     public static ArrayList getWorldDetails(BlockPos pos, World world){
-        ArrayList<String> row = new ArrayList<>();
+        ArrayList<String> row = new ArrayList<String>();
         IBlockState me = world.getBlockState(pos);
         for(int i = -2; i <= 2; i++){
             for(int k = -2; k <= 2; k++){
@@ -56,7 +56,7 @@ public class BBHelper {
     public static boolean writeDataToFile(ArrayList data, String file){
 
         try {
-            String line = String.join(",",data);
+            String line =  String.join(",",data);
             PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
             writer.println(line);
             writer.close();

@@ -15,6 +15,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import com.saadghani.minecraft.blocks.ModBlocks;
 import com.saadghani.minecraft.items.ModItems;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import org.deeplearning4j.nn.modelimport.keras.KerasModelImport;
+import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.nd4j.linalg.io.ClassPathResource;
+import scala.util.parsing.json.JSON;
+
+import java.io.FileReader;
 
 
 @Mod(modid = McMod.MODID, name = McMod.NAME, version = McMod.VERSION)
@@ -26,6 +35,9 @@ public class McMod
 
     public static final AiTab creativeTab = new AiTab();
 
+    public static int featureColumns = 25;
+    public static MultiLayerNetwork model;
+    public static JSONObject metaObj;
 
 
     @Mod.Instance(MODID)
@@ -39,6 +51,25 @@ public class McMod
     public void preInit(FMLPreInitializationEvent event) {
         System.out.println(NAME + " is loading!");
         proxy.registerRenderers();
+
+        try {
+
+            //load json blocks
+            metaObj = (JSONObject) new JSONParser().parse(new FileReader(new ClassPathResource("meta1.json").getFile().getPath()));
+
+            JSONArray blocks = (JSONArray) metaObj.get("blocks");
+            for (int i = 0; i < blocks.size(); i++) {
+                JSONObject block = (JSONObject) blocks.get(i);
+                JSONArray dummyBlocks = (JSONArray) block.get("block" + (i + 1));
+                featureColumns += dummyBlocks.size();
+            }
+
+            // load the model
+            String simpleMlp = new ClassPathResource("network1.h5").getFile().getPath();
+            model = KerasModelImport.importKerasSequentialModelAndWeights(simpleMlp);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Mod.EventHandler
