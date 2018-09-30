@@ -34,3 +34,5 @@ pack.mcmeta
 
 #python
 *.hdf5
+*.csv
+*.h5
